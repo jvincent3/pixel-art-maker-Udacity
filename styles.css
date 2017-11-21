@@ -21,6 +21,10 @@ tr,
 td {
     border: 1px solid black;
 }
+td.a {
+    width:20px;
+    display:block;
+}
 
 table {
     border-collapse: collapse;
