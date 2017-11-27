@@ -1,10 +1,6 @@
 (function(){
 
-
-
 	var grid = {
-		valueColumn: 1,
-		valueRow: 1,
 
 		init: function(){
 			this.cacheDom();
@@ -24,7 +20,6 @@
 			this.tbody = $('tbody');
 			this.pickColor = $('#colorPicker');
 			this.$body = $('body');
-
 		},
 
 		render: function(){
@@ -32,34 +27,27 @@
 			valueColumn = $('#input_height').val();
 			this.addGrid();
 		},
+
 		test: function(){
 
 			this.$input.on('change', function(){
-			valueColumn = $('#input_height').val();
-			
+			valueColumn = $('#input_height').val();			
 
 			});
-
 		},
 
 		// GRID BOX
 
 		addGrid: function(valColumn, valRow){
 			
-
-
-
 			for(let i = 0; i < valColumn; i++) {
 				this.table.append('<tr id="grid-'+i+'"></tr>');
 				for( let j = 0; j < valRow ; j++) {
 					$('tbody').children('#grid-' + "" + i + "").append('<td id="grid-' + i + '-' + j + '"></td>');
 				}
-			}
-			
-
+			}			
 		},
 		gridUpdate: function(valColumn, valRow){
-
 
 			this.$button.on('click', function(){
 				var onGrid = 0;
@@ -71,9 +59,7 @@
 				grid.addGrid(valColumn, valRow);
 				return false;
 				ongrid = 1;
-				}
-
-				
+				}				
 			});
 			
 		},
@@ -104,7 +90,6 @@
 		},
 
 	};
-
 	grid.init();
 
 })()
