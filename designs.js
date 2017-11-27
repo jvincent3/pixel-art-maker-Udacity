@@ -1,78 +1,111 @@
-// Select color input
-// Select size input
-
-// When size is submitted by the user, call makeGrid()
-var button = "yo";
-var color = $('#colorPicker'); 
-
-var column = $('#input_height').val();
-var row =  $('#input_width').val();
-var color = $('#colorPicker').val();
-var onGrid = 0;
-
-// Grid Creation function
-
-function makeGrid(gridHeight,gridWidth) {
-// Your code goes here!
-
-var table = $('#pixel_canvas');
-
-for(let i = 0; i < gridHeight; i++) {
-		table.append('<tr id="grid-'+i+'"></tr>');
-		for( let j = 0; j < gridWidth ; j++) {
-			$('tbody').children('#grid-'+""+i+"").append('<td id="grid-'+i+'-'+j+'"></td>');
-
-		}
-		
-	}
-}
-
-console.log();
-
-// Grid Values
-$('#input_height').on('change', function(){
-
-	column = $('#input_height').val();
-
-});
-
-$('#input_width').on('change', function(){
-
-	row = $('#input_width').val();
-
-});
-// COLORS 
-$('#colorPicker').on('change',function(){
-	color = $('#colorPicker').val();
-});
-
-
-// Grid Box, on Click change background color
-$('body').on('click','td', function(){
-
-	$(this).css('background-color', color);
-
-});
-
-// On click Grid Appears
-
-$('#submit').on('click', function(){
-
-do {
-	onGrid = 0;
-	$('tbody').remove();
-
-} while(onGrid === 1) {
-
-	makeGrid(column, row);
-	return false;
-	onGrid = 1;
-}
+(function(){
 
 
 
-});
+	var grid = {
+		valueColumn: 1,
+		valueRow: 1,
 
-// TESTS 
+		init: function(){
+			this.cacheDom();
+			
+		//	this.test();
+			
+			this.inputUpdate();
+			this.gridUpdate();
+			this.colorUpdate();
+			this.addColor();
+		},
+		cacheDom: function() {
+			this.$el = $('#sizePicker');
+			this.$input = this.$el.find('input');
+			this.$button = this.$el.find('#submit');
+			this.table = $('#pixel_canvas');
+			this.tbody = $('tbody');
+			this.pickColor = $('#colorPicker');
+			this.$body = $('body');
 
+		},
+
+		render: function(){
+			
+			valueColumn = $('#input_height').val();
+			this.addGrid();
+		},
+		test: function(){
+
+			this.$input.on('change', function(){
+			valueColumn = $('#input_height').val();
+			
+
+			});
+
+		},
+
+		// GRID BOX
+
+		addGrid: function(valColumn, valRow){
+			
+
+
+
+			for(let i = 0; i < valColumn; i++) {
+				this.table.append('<tr id="grid-'+i+'"></tr>');
+				for( let j = 0; j < valRow ; j++) {
+					$('tbody').children('#grid-' + "" + i + "").append('<td id="grid-' + i + '-' + j + '"></td>');
+				}
+			}
+			
+
+		},
+		gridUpdate: function(valColumn, valRow){
+
+
+			this.$button.on('click', function(){
+				var onGrid = 0;
+				do {
+					$('tbody').remove();
+					ongrid = 0;
+				} while(onGrid === 1) {
+					
+				grid.addGrid(valColumn, valRow);
+				return false;
+				ongrid = 1;
+				}
+
+				
+			});
+			
+		},
+		inputUpdate: function(){
+
+			this.$input.on('change', function(){
+				var valColumn = $('#input_height').val();
+				var valRow = $('#input_width').val();
+
+				grid.gridUpdate(valColumn, valRow);
+			});
+		},
+
+
+		// COLORING
+		colorUpdate: function(){
+
+			this.pickColor.on('change', function(){
+				var color = $('#colorPicker').val();
+				grid.addColor(color);
+
+			});
+		},
+		addColor: function(color){
+			this.$body.on('mousedown', 'td', function(){
+				$(this).css('background-color', color);
+			})
+		},
+
+	};
+
+	grid.init();
+
+})()
 
