@@ -3,10 +3,8 @@
 	var grid = {
 
 		init: function(){
-			this.cacheDom();
-			
-		//	this.test();
-			
+			this.cacheDom();		
+		//	this.test();			
 			this.inputUpdate();
 			this.gridUpdate();
 			this.colorUpdate();
@@ -20,6 +18,7 @@
 			this.tbody = $('tbody');
 			this.pickColor = $('#colorPicker');
 			this.$body = $('body');
+
 		},
 
 		render: function(){
@@ -27,17 +26,16 @@
 			valueColumn = $('#input_height').val();
 			this.addGrid();
 		},
-
 		test: function(){
 
 			this.$input.on('change', function(){
-			valueColumn = $('#input_height').val();			
-
+			valueColumn = $('#input_height').val();
+			
 			});
 		},
 
-		// GRID BOX
-
+		// CREATE GRID BOX
+			// FUNCTION TO CREATE THE ROWS x COLUMNS
 		addGrid: function(valColumn, valRow){
 			
 			for(let i = 0; i < valColumn; i++) {
@@ -45,8 +43,9 @@
 				for( let j = 0; j < valRow ; j++) {
 					$('tbody').children('#grid-' + "" + i + "").append('<td id="grid-' + i + '-' + j + '"></td>');
 				}
-			}			
+			}
 		},
+			//CALL AND RESENTS THE DRAWING SHEET
 		gridUpdate: function(valColumn, valRow){
 
 			this.$button.on('click', function(){
@@ -54,15 +53,16 @@
 				do {
 					$('tbody').remove();
 					ongrid = 0;
-				} while(onGrid === 1) {
-					
-				grid.addGrid(valColumn, valRow);
+				} while(onGrid === 1) {					
+				grid.addGrid(valColumn, valRow);	
+				grid.addColor(grid.pickColor.val());			
 				return false;
 				ongrid = 1;
 				}				
 			});
 			
 		},
+		
 		inputUpdate: function(){
 
 			this.$input.on('change', function(){
@@ -78,19 +78,20 @@
 		colorUpdate: function(){
 
 			this.pickColor.on('change', function(){
-				var color = $('#colorPicker').val();
+				color = $('#colorPicker').val();
 				grid.addColor(color);
-
-			});
+			});			
 		},
+
 		addColor: function(color){
 			this.$body.on('mousedown', 'td', function(){
 				$(this).css('background-color', color);
 			})
 		},
-
 	};
+
 	grid.init();
 
 })()
+
 
