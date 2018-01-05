@@ -1,88 +1,73 @@
-// When size is submitted by the user, call makeGrid()
-const body = $('body');
+$(function(){
+	
+		// When size is submitted by the user, call makeGrid()
+	const body = $('body');
+	const column = $('#input_height');
+	const row =  $('#input_width');
+	const colorPicker = $('#colorPicker');
 
+	var onGrid = 0;
 
-var column = $('#input_height').val();
-var row =  $('#input_width').val();
-var colorPicker = $('#colorPicker')
-var onGrid = 0;
+	// Grid Creation function
+		function makeGrid(gridHeight,gridWidth) {
 
+			var table = $('#pixel_canvas');
 
-
-// Grid Creation function
-function makeGrid(gridHeight,gridWidth) {
-
-	var table = $('#pixel_canvas');
-
-	for(let i = 0; i < gridHeight; i++) {
-			table.append('<tr id="grid-'+i+'"></tr>');
-			for( let j = 0; j < gridWidth ; j++) {
-				$('tbody').children('#grid-' + "" + i + "").append('<td id="grid-' + i + '-' + j + '"></td>');
+			for(let i = 0; i < gridHeight; i++) {
+					table.append('<tr id="grid-'+i+'"></tr>');
+					for( let j = 0; j < gridWidth ; j++) {
+						$('tbody').children('#grid-' + "" + i + "").append('<td id="grid-' + i + '-' + j + '"></td>');
+				}
 			}
 		}
-	}
+	// On click Grid Appears
+		function submitGrid() {
 
-// Grid Values
-	$('#input_height').on('change', function(){
+			$('#submit').on('click', function(){
+				//Grid Values
+				let column1 = column.val(); //Column Value
+				let row1 = row.val();	// Row Value
 
-		column = $('#input_height').val();
+				do {
+					onGrid = 0;
+					$('tbody').remove();
+				} while(onGrid === 1) {
 
+					makeGrid(column1, row1);
+					return false;
+					onGrid = 1;
 
-	});
+				}
+			});
+		}
+	// COLOR Picker
+		function colorBox(element){  
+	        
+	     	let color = colorPicker.val();
+	        
+	        $(element).css("background-color", color);
+	        
+	    }
 
-	$('#input_width').on('change', function(){
+	// Grid Box, on Click change background color
+		body.on('mousedown','td', function(){
 
-		row = $('#input_width').val();
+			//$(this).css('background-color', color);
+			colorBox(this);
+		});
 
-	});
-// COLOR Picker
-	function colorBox(element){  
-        
-     	let color = colorPicker.val();
-        
-        $(element).css("background-color", color);
-        
-    }
+	// Add color on hover and left mouse is clicked
+	    body.on("mouseover", "td", function(e){
+	        
+	 		if(e.buttons == 1){
 
-// Grid Box, on Click change background color
-	body.on('mousedown','td', function(){
+	            colorBox(this);        
+	        }
+	    });
 
-		//$(this).css('background-color', color);
-		colorBox(this);
-	});
+				
+	submitGrid();
 
-// Add color on hover and left mouse is clicked
-    body.on("mouseover", "td", function(e){
-        
- 		if(e.buttons == 1){
-        
-            colorBox(this);
-        
-        }
-        
-    });
-
-			
-
-// On click Grid Appears
-
-
-	$('#submit').on('click', function(){
-
-	do {
-		onGrid = 0;
-		$('tbody').remove();
-	} while(onGrid === 1) {
-
-		makeGrid(column, row);
-		return false;
-		onGrid = 1;
-
-	}
-
-
-
-	});
-
+});
 
 
