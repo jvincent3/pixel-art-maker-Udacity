@@ -25,19 +25,27 @@ $(function(){
 
 			$('#submit').on('click', function(){
 				//Grid Values
-				let column1 = column.val(); //Column Value
-				let row1 = row.val();	// Row Value
+				var columnVal = column.val(); //Column Value
+				var rowVal = row.val();	// Row Value
+
+			if (!(columnVal > 0 && columnVal <= 50) || !( rowVal>0 && rowVal <=50)) { 
+				// If passes lesser than 1 or passes over 50, Alert the user
+				alert("Please input a number between 1-50");
+			} else {
 
 				do {
 					onGrid = 0;
-					$('tbody').remove();
+					
+					$('tbody').remove();// Clears current canvas if exists
 				} while(onGrid === 1) {
 
-					makeGrid(column1, row1);
-					return false;
+					makeGrid(columnVal, rowVal);
+
+					return false; //It does some magic that won't make the table disappear after pressing submit
 					onGrid = 1;
 
 				}
+			}
 			});
 		}
 	// COLOR Picker
