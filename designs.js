@@ -14,9 +14,10 @@ $(function(){
 			var table = $('#pixel_canvas');
 
 			for(let i = 0; i < gridHeight; i++) {
-					table.append('<tr id="grid-'+i+'"></tr>');
+						const rowCell = $('<tr></tr>'); 
+						table.append(rowCell);
 					for( let j = 0; j < gridWidth ; j++) {
-						$('tbody').children('#grid-' + "" + i + "").append('<td id="grid-' + i + '-' + j + '"></td>');
+						rowCell.append('<td></td>');
 				}
 			}
 		}
