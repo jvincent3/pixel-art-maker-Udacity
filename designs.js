@@ -34,20 +34,25 @@ $(function(){
 				alert("Please input a number between 1-50");
 			} else {
 
-				do {
+				premadeGrid(columnVal,rowVal);
+				return false;
+			}
+			});
+		}
+
+		function premadeGrid(gridHeight, gridWidth) {
+			do {
 					onGrid = 0;
-					
+
 					$('tbody').remove();// Clears current canvas if exists
 				} while(onGrid === 1) {
 
-					makeGrid(columnVal, rowVal);
+					makeGrid(gridHeight, gridWidth);
 
 					return false; //It does some magic that won't make the table disappear after pressing submit
 					onGrid = 1;
 
 				}
-			}
-			});
 		}
 	// COLOR Picker
 		function colorBox(element){  
@@ -73,6 +78,32 @@ $(function(){
 	            colorBox(this);        
 	        }
 	    });
+
+	// Premade grid on click   
+		$('#16x').on('click', function(){
+
+			premadeGrid(16,16);
+			return false;
+				
+			});
+	    $('#24x').on('click', function(){
+
+			premadeGrid(24,24);
+			return false;
+				
+			});
+	    $('#32x').on('click', function(){
+
+			premadeGrid(32,32);
+			return false;
+				
+			});
+	    $('#50x').on('click', function(){
+
+			premadeGrid(50,50);
+			return false;
+				
+			});
 
 				
 	submitGrid();
