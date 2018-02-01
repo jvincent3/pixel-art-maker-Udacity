@@ -1,7 +1,8 @@
 $(function(){
 	
 		// When size is submitted by the user, call makeGrid()
-	const body = $('body');
+
+	const body = $('body'); 
 	const column = $('#input_height');
 	const row =  $('#input_width');
 	const colorPicker = $('#colorPicker');
@@ -26,8 +27,8 @@ $(function(){
 
 			$('#submit').on('click', function(){
 				//Grid Values
-				var columnVal = column.val(); //Column Value
-				var rowVal = row.val();	// Row Value
+				var columnVal = column.val(); //it gets the val of the Column
+				var rowVal = row.val();	//it gets the val of the Row 
 
 			if (!(columnVal > 0 && columnVal <= 50) || !( rowVal>0 && rowVal <=50)) { 
 				// If passes lesser than 1 or passes over 50, Alert the user
@@ -44,7 +45,7 @@ $(function(){
 			do {
 					onGrid = 0;
 
-					$('tbody').remove();// Clears current canvas if exists
+					$('tbody').remove();// Clears existing canvas
 				} while(onGrid === 1) {
 
 					makeGrid(gridHeight, gridWidth);
@@ -57,11 +58,18 @@ $(function(){
 	// COLOR Picker
 		function colorBox(element){  
 	        
-	     	let color = colorPicker.val();
+	     	let color = colorPicker.val();// Takes the value of the colorPicker and saves it to the var color
 	        
-	        $(element).css("background-color", color);
+	        $(element).css("background-color", color); // Give the given element the value of the ColorPicker.
 	        
 	    }
+
+	  	// COLOR REMOVER
+
+	  	function clearBox(element) {
+
+	  		$(element).css("background-color", "");
+	  	}
 
 	// Grid Box, on Click change background color
 		body.on('mousedown','td', function(){
@@ -72,12 +80,17 @@ $(function(){
 
 	// Add color on hover and left mouse is clicked
 	    body.on("mouseover", "td", function(e){
-	        
+
+	        // If left mouse button color the cell.
 	 		if(e.buttons == 1){
 
 	            colorBox(this);        
 	        }
 	    });
+
+	    body.on("dblclick", "td", function(){
+	    	clearBox(this);
+	    })
 
 	// Premade grid on click   
 		$('#16x').on('click', function(){
